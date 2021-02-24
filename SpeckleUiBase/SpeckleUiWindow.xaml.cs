@@ -31,6 +31,7 @@ namespace SpeckleUiBase
     /// <param name="address">Defaults to the master branch release of the web ui app. Change it to where you're running your local server when debugging!</param>
     public SpeckleUiWindow( SpeckleUIBindings baseBindings, string address = "https://matteo-dev.appui.speckle.systems/#/" )
     {
+      InitializeCef();
       InitializeComponent();
 
       baseBindings.Browser = Browser;
@@ -39,6 +40,13 @@ namespace SpeckleUiBase
       Browser.RegisterAsyncJsObject( "UiBindings", baseBindings );
 
       Browser.Address = address;
+
+      // Allow the use of local resources in the browser
+      Browser.BrowserSettings = new BrowserSettings
+      {
+          FileAccessFromFileUrls = CefState.Enabled,
+          UniversalAccessFromFileUrls = CefState.Enabled
+      };
     }
 
     // Note: Dynamo ships with cefsharp too, so we need to be careful around initialising cefsharp.
@@ -55,6 +63,9 @@ namespace SpeckleUiBase
       {
         BrowserSubprocessPath = pathSubprocess,
       };
+
+      settings.CefCommandLineArgs.Add("allow-file-access-from-files", "1");
+      settings.CefCommandLineArgs.Add("disable-web-security", "1");
 
       Cef.Initialize( settings );
     }

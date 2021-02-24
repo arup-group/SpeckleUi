@@ -40,7 +40,15 @@ namespace SpeckleUiBase
     public virtual void DispatchStoreActionUi( string storeActionName, string args = null )
     {
       var script = string.Format( "window.Store.dispatch('{0}', '{1}')", storeActionName, args );
-      Browser.GetMainFrame().EvaluateScriptAsync( script );
+      //Browser.GetMainFrame().EvaluateScriptAsync( script );
+      try
+      {
+          Browser.GetMainFrame().EvaluateScriptAsync(script);
+      }
+      catch
+      {
+          Debug.WriteLine("For some reason, this browser was not initialised.");
+      }
     }
 
     /// <summary>
