@@ -140,10 +140,10 @@
   </Choose>
   <ItemGroup>
     <PackageReference Include="SpecCxCore">
-      <Version>1.2.3</Version>
+      <Version>1.2.4</Version>
     </PackageReference>
     <PackageReference Include="SpecCxPopup">
-      <Version>1.2.2</Version>
+      <Version>1.2.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
